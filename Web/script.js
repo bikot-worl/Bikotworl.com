@@ -1,0 +1,60 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const yearSpan = document.getElementById('copyright-year');
+    if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+    }
+});
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+            registration.unregister();
+        }
+    });
+}
+
+function toggleGameOptions(gameId) {
+    const options = document.getElementById(gameId + '-options');
+    options.classList.toggle('show');
+}
+
+function openModal(modalId) {
+    document.getElementById(modalId).style.display = 'flex';
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    const content = modal.querySelector('.modal-content-game');
+    
+    content.classList.add('hide-animation');
+    
+    setTimeout(() => {
+        modal.style.display = 'none';
+        content.classList.remove('hide-animation');
+    }, 500);
+}
+
+function closeModalOnOutsideClick(event) {
+    if (event.target.classList.contains('modal-overlay')) {
+        closeModal(event.target.id);
+    }
+}
+
+document.addEventListener('contextmenu', e => {
+    if (e.target.tagName === 'IMG') e.preventDefault();
+});
+
+document.addEventListener('dragstart', e => {
+    if (e.target.tagName === 'IMG') e.preventDefault();
+});
+
+document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'u')) {
+        e.preventDefault();
+    }
+});
+
+window.toggleGameOptions = toggleGameOptions;
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.closeModalOnOutsideClick = closeModalOnOutsideClick;
