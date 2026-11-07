@@ -1,144 +1,82 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redireccionando...</title>
-    <style>
-        :root {
-            --color-naranja-principal: #EA7900;
-            --color-fondo-oscuro: #000000;
-            --color-texto-principal: var(--color-naranja-principal);
-            --color-error: #FF3333;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: var(--color-fondo-oscuro);
-            color: var(--color-texto-principal);
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            user-select: none;
-            -webkit-user-select: none;
-            -webkit-tap-highlight-color: transparent;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-        }
-
-        .container {
-            padding: 20px;
-            max-width: 500px;
-        }
-
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        .spinner {
-            margin: 20px auto;
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(234, 121, 0, 0.2);
-            border-top: 4px solid var(--color-naranja-principal);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .error-box {
-            display: none;
-            border: 1px solid var(--color-naranja-principal);
-            padding: 20px;
-            border-radius: 8px;
-            background-color: rgba(234, 121, 0, 0.05);
-        }
-
-        .btn-retry {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px 20px;
-            color: var(--color-fondo-oscuro);
-            background-color: var(--color-naranja-principal);
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 4px;
-            border: none;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-
-        .btn-retry:hover {
-            opacity: 0.85;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bikot - Web</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.1.0/uicons-bold-straight/css/uicons-bold-straight.css">
+  <link rel="stylesheet" href="style.css"> 
+  <link rel="icon" type="image/x-icon" href="/favicon.ico"> 
 </head>
 <body>
-
-    <div class="container">
-        <div id="redirect-section">
-            <div class="spinner"></div>
-            <h1>Redireccionando...</h1>
-            <p>Un momento por favor.</p>
-        </div>
-
-        <div id="error-section" class="error-box">
-            <h1 style="color: var(--color-naranja-principal);">¡Error al redireccionar!</h1>
-            <p id="error-message">No se pudo acceder a la página de destino o la URL no responde.</p>
-            <button class="btn-retry" onclick="ejecutarRedireccion()">Reintentar</button>
-        </div>
+  <header class="header-bar">
+    <div class="header-content">
+      <div class="app-title-container">
+        <i class="icon-Bikot app-icon-header-custom icon-color-negro"></i>
+        <span class="app-title-superposition">Bikotㅤㅤ</span>
+      </div>
     </div>
+  </header>
 
-    <script>
-        const URL_DESTINO = "https://Bikotworl.com/Web"; 
+  <main>
+    <section class="intro-text">
+      <h1>¡Bienvenido!</h1>
+      <p>Hola, soy un programador independiente que lo hace por pasatiempo. También aquí subo mis proyectos de robótica tanto personales y de la escuela</p>
+      <p>Aquí encontrarás links de descarga o links para jugar en la web diversos juegos.</p>
+      <p>Si quieren pueden apoyar para que pueda desarrollar más juegos y/o contenido.</p>
+      <p>Pues esto es todo y que disfruten el contenido.</p>
+    </section>
 
-        const redirectSection = document.getElementById('redirect-section');
-        const errorSection = document.getElementById('error-section');
-        const errorMessageEl = document.getElementById('error-message');
+    <section class="cards-section">
+      <div class="container">
+        
+        <div data-text="Juegos" style="--r:10;" class="glass">
+          <a href="juegos.html" style="text-decoration: none; color: inherit; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; position: absolute; top: 0; left: 0; z-index: 5;">
+            <i class="fas fa-gamepad"></i>
+          </a>
+        </div>
+        
+        <div data-text="Descargar" style="--r:-20;" class="glass">
+          <a href="Descarga.html" style="text-decoration: none; color: inherit; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; position: absolute; top: 0; left: 0; z-index: 5;">
+            <i class="fi fi-bs-download"></i>
+          </a>
+        </div>
 
-        function mostrarError(mensaje) {
-            redirectSection.style.display = 'none';
-            errorSection.style.display = 'block';
-            if (mensaje) {
-                errorMessageEl.textContent = mensaje;
-            }
-        }
+        <div data-text="Canales" style="--r:-10;" class="glass">
+          <a href="canales.html" style="text-decoration: none; color: inherit; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; position: absolute; top: 0; left: 0; z-index: 5;">
+            <i class="fas fa-link"></i>
+          </a>
+        </div>
 
-        function ejecutarRedireccion() {
-            errorSection.style.display = 'none';
-            redirectSection.style.display = 'block';
+        <div data-text="Robótica" style="--r:15;" class="glass">
+          <a href="robotica.html" style="text-decoration: none; color: inherit; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; position: absolute; top: 0; left: 0; z-index: 5;">
+            <i class="fas fa-robot"></i>
+          </a>
+        </div>
 
-            try {
-                if (!URL_DESTINO || URL_DESTINO === "") {
-                    throw new Error("La URL de destino no ha sido configurada correctamente.");
-                }
+        <div data-text="Apoyar" style="--r:20;" class="glass">
+          <a href="Apoyo.html" style="text-decoration: none; color: inherit; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; position: absolute; top: 0; left: 0; z-index: 5;">
+            <i class="fas fa-handshake"></i>
+          </a>
+        </div>
 
-                window.location.href = URL_DESTINO;
+        <div data-text="Extra" style="--r:0;" class="glass">
+          <a href="extra.html" style="text-decoration: none; color: inherit; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; position: absolute; top: 0; left: 0; z-index: 5;">
+            <i class="fas fa-star"></i>
+          </a>
+        </div>
 
-                setTimeout(() => {
-                    mostrarError("La redirección tardó demasiado o fue bloqueada por el navegador.");
-                }, 3000);
+      </div>
+    </section>
+  </main>
+  
+  <footer class="main-footer">
+    <div class="footer-bottom">
+      <p>&copy; <span id="copyright-year"></span> Bikot. Todos los derechos reservados.</p>
+    </div>
+  </footer>
 
-            } catch (error) {
-                mostrarError(error.message);
-            }
-        }
-
-        ejecutarRedireccion();
-    </script>
-
+<script src="script.js"></script>
 </body>
 </html>
