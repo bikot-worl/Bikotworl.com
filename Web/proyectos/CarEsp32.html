@@ -1,1 +1,1207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bikot_Car: diagrama de conexión</title>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @font-face {
+      font-family: 'Bikot';
+      src: url('../../fonts/Bikot.woff2') format('woff2'),
+           url('../../fonts/Bikot.ttf') format('truetype'),
+           url('../../fonts/Bikot.woff') format('woff'),
+           url('../../fonts/Bikot.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: block;
+    }
 
+    [class^="icon-"], [class*=" icon-"] {
+      font-family: 'Bikot' !important;
+      speak: never;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .icon-Bikot:before { content: "\e900"; }
+
+    :root {
+      --bg: #0c1117;
+      --pn: rgba(255,255,255,.045);
+      --ln: rgba(255,255,255,.11);
+      --tx: #e6ebf1;
+      --mu: #93a1b3;
+      --ac: #EA7900;
+      --sg: #3dd6c6;
+      color-scheme: dark;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      --halftone-size: 8px;
+      --grad-start: -10%;
+      --grad-end: 85%;
+    }
+
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
+
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    pre, pre *, .tip {
+      -webkit-user-select: text;
+      user-select: text;
+    }
+
+    svg * {
+      outline: none !important;
+    }
+
+    html {
+      scroll-padding-top: env(safe-area-inset-top, 0px);
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(900px 520px at 88% -8%, rgba(234,121,0,.17), transparent 60%),
+                  radial-gradient(700px 500px at -8% 28%, rgba(61,214,198,.09), transparent 60%), #0c1117;
+      background-color: var(--bg);
+      color: var(--tx);
+      font: 400 16px/1.6 "Chakra Petch", system-ui, sans-serif;
+    }
+
+    main {
+      max-width: 1160px;
+      margin: 60px auto 0;
+      padding: 28px 18px 64px;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 7vw, 4.4rem);
+      line-height: 1;
+      margin: 18px 0 12px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin: 0 0 14px;
+      font-weight: 700;
+    }
+
+    h3 {
+      font-size: 1rem;
+      margin: 0 0 8px;
+      font-weight: 600;
+      color: var(--mu);
+    }
+
+    p {
+      margin: 0 0 10px;
+    }
+
+    .lead {
+      max-width: 62ch;
+      color: var(--mu);
+      font-size: 1.1rem;
+    }
+
+    section {
+      margin-top: 52px;
+    }
+
+    .header-bar {
+      width: 100%;
+      height: 60px;
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      padding: 0 15px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      overflow: visible;
+    }
+
+    .header-bar::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background-color: var(--color-naranja-principal, #EA7900);
+      box-shadow: 0 2px 4px rgba(0,0,0,.3);
+      z-index: -2;
+      width: 0;
+      animation: headerSlide 3s cubic-bezier(.25,1,.5,1) forwards;
+    }
+
+    .header-bar::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: -1;
+      background-image: radial-gradient(circle at center, #fff 0%, #000 65%),
+                        radial-gradient(circle at center, #fff 0%, #000 65%),
+                        linear-gradient(90deg, #fff var(--grad-start), #000 var(--grad-end));
+      background-size: var(--halftone-size) var(--halftone-size), var(--halftone-size) var(--halftone-size), 100% 100%;
+      background-position: 0 0, calc(var(--halftone-size)/2) calc(var(--halftone-size)/2), 0 0;
+      background-blend-mode: screen, screen, multiply;
+      filter: contrast(18);
+      mix-blend-mode: multiply;
+      width: 0;
+      animation: headerSlide 3s cubic-bezier(.25,1,.5,1) forwards;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      color: #fff;
+    }
+
+    .app-title-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .app-icon-header-custom {
+      font-size: 79px !important;
+      margin-right: 12px;
+      line-height: 1;
+      display: inline-block;
+      animation: iconIntro 3s cubic-bezier(.25,1,.5,1) forwards;
+    }
+
+    .app-title-superposition {
+      font-family: 'Bikot', 'Montserrat', 'Syne', 'Outfit', sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      letter-spacing: -.02em;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #fff 30%, #ffb86c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 4px 20px rgba(0,0,0,.15);
+      white-space: normal;
+      transition: transform .3s ease;
+      opacity: 0;
+      animation: textFadeIn 2s ease-out forwards;
+      padding-right: 12px;
+    }
+
+    @keyframes headerSlide {
+      0%, 29% { width: 0; opacity: 0; }
+      30% { width: 80px; opacity: 1; }
+      100% { width: 100%; opacity: 1; }
+    }
+
+    @keyframes iconIntro {
+      0% { transform: translate(calc(50vw - 50px), calc(50vh - 30px)) scale(3) rotateY(180deg); color: #EA7900; }
+      20% { transform: translate(calc(50vw - 50px), calc(50vh - 30px)) scale(3) rotateY(0deg); color: #EA7900; }
+      50% { transform: translate(0, 0) scale(1) rotateY(0deg); color: #EA7900; }
+      80%, 100% { transform: translate(0, 0) scale(1) rotateY(0deg); color: #000; }
+    }
+
+    @keyframes textFadeIn {
+      0%, 55% { opacity: 0; transform: translateX(-20px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+
+    .card {
+      background: var(--pn);
+      border: 1px solid var(--ln);
+      border-radius: 18px;
+      padding: 20px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 18px 40px -22px rgba(0,0,0,.7);
+    }
+
+    .scroll {
+      overflow-x: auto;
+    }
+
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    @media (max-width: 760px) {
+      svg { min-width: 760px; }
+    }
+
+    .pl {
+      font: 600 11px "JetBrains Mono", monospace;
+      fill: #cfd8e3;
+    }
+
+    .lw {
+      fill: #ffe9d6;
+    }
+
+    .t {
+      font: 600 12px "Chakra Petch", sans-serif;
+      fill: #aab4c2;
+    }
+
+    @media (max-width: 1000px) {
+      .pl { font-size: 14px; }
+      .t { font-size: 15px; }
+    }
+
+    .wire {
+      cursor: pointer;
+      outline: none;
+      transition: opacity .2s;
+    }
+
+    .wire .vis {
+      fill: none;
+      stroke-width: 3;
+      stroke-linecap: round;
+      opacity: .3;
+      transition: opacity .2s, stroke-width .2s;
+    }
+
+    .wire .hit {
+      fill: none;
+      stroke: transparent;
+      stroke-width: 16;
+      pointer-events: stroke;
+    }
+
+    .wire.on .vis {
+      opacity: 1;
+      stroke-dasharray: 7 9;
+      animation: flow .7s linear infinite;
+      filter: drop-shadow(0 0 4px currentColor);
+    }
+
+    .wire.hl .vis {
+      opacity: 1;
+      stroke-width: 5.5;
+    }
+
+    svg.dim .wire:not(.hl) {
+      opacity: .28;
+    }
+
+    @keyframes flow {
+      to { stroke-dashoffset: -16; }
+    }
+
+    .wheel {
+      animation: spin 1s linear infinite;
+      animation-play-state: paused;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    #led {
+      transition: fill .15s;
+    }
+
+    #led.lit {
+      fill: #ffe066;
+      filter: drop-shadow(0 0 9px #ffe066);
+    }
+
+    #buzring {
+      opacity: 0;
+    }
+
+    #buzring.lit {
+      animation: ping .4s ease-out infinite;
+    }
+
+    @keyframes ping {
+      from { opacity: .9; r: 22; }
+      to { opacity: 0; r: 36; }
+    }
+
+    .tip {
+      margin: 12px 2px 0;
+      min-height: 1.6em;
+      color: var(--sg);
+      font: 400 .92rem "JetBrains Mono", monospace;
+    }
+
+    .ctl {
+      display: grid;
+      grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+      gap: 22px 34px;
+      margin-top: 18px;
+    }
+
+    .pad {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      max-width: 460px;
+    }
+
+    .pad button {
+      min-height: 68px;
+    }
+
+    button {
+      font: 600 1.05rem "Chakra Petch", sans-serif;
+      color: var(--tx);
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--ln);
+      border-radius: 12px;
+      padding: 10px 6px;
+      cursor: pointer;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+      transition: background .15s, transform .1s;
+    }
+
+    button small {
+      display: block;
+      font-weight: 400;
+      font-size: .7rem;
+      color: var(--mu);
+      line-height: 1.2;
+    }
+
+    button:hover {
+      background: rgba(255,255,255,.11);
+    }
+
+    button:focus-visible, input:focus-visible {
+      outline: 2px solid var(--sg);
+      outline-offset: 2px;
+    }
+
+    .wire:focus .vis {
+      stroke-width: 5.5;
+      opacity: 1;
+    }
+
+    button.down, button.act {
+      background: var(--ac);
+      border-color: var(--ac);
+      color: #140a00;
+    }
+
+    button.down small, button.act small {
+      color: #3a1f00;
+    }
+
+    .stop {
+      border-color: rgba(255, 90, 90, .6);
+    }
+
+    .side {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .seg {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .read {
+      grid-column: 1/-1;
+      border-top: 1px solid var(--ln);
+      padding-top: 14px;
+    }
+
+    #chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .chip {
+      font: 600 12px "JetBrains Mono", monospace;
+      padding: 4px 10px;
+      border-radius: 99px;
+      border: 1px solid var(--ln);
+      color: var(--mu);
+    }
+
+    .chip.on {
+      color: #07201d;
+      background: var(--sg);
+      border-color: var(--sg);
+    }
+
+    #status {
+      color: var(--mu);
+      font-size: .9rem;
+      margin: 0;
+    }
+
+    .g3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--ln);
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--mu);
+      font-weight: 600;
+      font-size: .85rem;
+    }
+
+    td:first-child {
+      color: var(--ac);
+      font-weight: 700;
+      width: 48px;
+    }
+
+    td:nth-child(2) {
+      font-family: "JetBrains Mono", monospace;
+      font-size: .88rem;
+      white-space: nowrap;
+    }
+
+    .note {
+      margin-top: 16px;
+      border-left: 3px solid var(--ac);
+      padding: 10px 16px;
+      background: rgba(234,121,0,.08);
+      border-radius: 0 12px 12px 0;
+    }
+
+    .mats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .mats label {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 12px 14px;
+      border: 1px solid var(--ln);
+      border-radius: 12px;
+      cursor: pointer;
+      background: rgba(255,255,255,.03);
+    }
+
+    .mats input {
+      accent-color: var(--ac);
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      flex: none;
+    }
+
+    .mats small {
+      display: block;
+      color: var(--mu);
+      font-size: .82rem;
+    }
+
+    .mats input:checked + span b {
+      text-decoration: line-through;
+      color: var(--mu);
+    }
+
+    .bar {
+      height: 6px;
+      border-radius: 9px;
+      background: rgba(255,255,255,.1);
+      overflow: hidden;
+    }
+
+    .bar i {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--ac);
+      transition: width .3s;
+    }
+
+    .ed {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .edh {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--ln);
+      background: rgba(255,255,255,.04);
+    }
+
+    .edh span {
+      font: 600 .9rem "JetBrains Mono", monospace;
+      color: var(--mu);
+    }
+
+    .edh button {
+      touch-action: auto;
+      padding: 7px 14px;
+      font-size: .9rem;
+    }
+
+    .edh button.done {
+      background: var(--sg);
+      border-color: var(--sg);
+      color: #07201d;
+    }
+
+    pre {
+      margin: 0;
+      padding: 16px;
+      overflow: auto;
+      max-height: 560px;
+      font: 400 13px/1.6 "JetBrains Mono", monospace;
+      color: #d6deea;
+    }
+
+    pre i {
+      font-style: normal;
+    }
+
+    .k { color: #ff8fab; }
+    .s { color: #9be564; }
+    .p { color: #c77dff; }
+    .n { color: #ffb703; }
+    .f { color: #6aa7ff; }
+
+    .hint {
+      display: none;
+      color: var(--mu);
+      font-size: .8rem;
+      margin: 8px 2px 0;
+    }
+
+    @media (max-width: 760px) {
+      .hint { display: block; }
+    }
+
+    @media (max-width: 900px) {
+      .ctl { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    @media (max-width: 560px) {
+      main { padding: 18px 12px 48px; }
+      .card { padding: 14px; }
+      .seg { gap: 6px; }
+      .pad { max-width: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .wire.on .vis, #buzring.lit { animation: none; }
+      .header-bar::before, .header-bar::after { animation: none; width: 100%; }
+      .app-icon-header-custom { animation: none; color: #000; }
+      .app-title-superposition { animation: none; opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header-bar">
+    <div class="header-content">
+      <div class="app-title-container">
+        <i class="icon-Bikot app-icon-header-custom"></i>
+        <span class="app-title-superposition">Bikot&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      </div>
+    </div>
+  </header>
+  
+  <main>
+    <header>
+      <h1>Diagrama de conexión</h1>
+      <p class="lead">Cableado interactivo de un carrito Bluetooth con ESP32 y puente H L298N. Mantén pulsado un comando y mira qué cables y motores se activan.</p>
+      <p class="lead">(El código puede ser modificado al gusto para corregir incongruencias o agregar funciones)</p>
+    </header>
+
+    <section style="margin-top:28px">
+      <div class="card">
+        <div class="scroll">
+          <svg id="svg" viewBox="0 0 1080 650" role="img" aria-label="Diagrama de conexión de Bikot_Car">
+            <defs>
+              <linearGradient id="mt" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#dfe4ea"/>
+                <stop offset="1" stop-color="#8b94a1"/>
+              </linearGradient>
+              <pattern id="fin" width="10" height="10" patternUnits="userSpaceOnUse">
+                <rect width="6" height="10" fill="#2d343f"/>
+                <rect x="6" width="4" height="10" fill="#12151a"/>
+              </pattern>
+            </defs>
+            <rect x="40" y="20" width="170" height="410" rx="10" fill="#10161e" stroke="#2c3846" stroke-width="2"/>
+            <rect x="95" y="6" width="60" height="26" rx="3" fill="url(#mt)"/>
+            <rect x="56" y="50" width="84" height="118" rx="3" fill="url(#mt)"/>
+            <text x="98" y="112" text-anchor="middle" font-size="9" fill="#2a303a" font-family="JetBrains Mono,monospace">ESP-WROOM-32</text>
+            <path d="M60 405H80V360H92V405H104V360H116V405H128V360H136" fill="none" stroke="#b8923a" stroke-width="3"/>
+            <text class="t" transform="translate(80 252) rotate(-90)" text-anchor="middle">ESP32 DevKit V1</text>
+            <rect x="540" y="100" width="260" height="340" rx="8" fill="#b72a30" stroke="#7d171c" stroke-width="2"/>
+            <rect x="590" y="130" width="150" height="120" rx="4" fill="url(#fin)" stroke="#444c58"/>
+            <text x="665" y="300" text-anchor="middle" font-size="24" font-weight="700" fill="#fff0e0">L298N</text>
+            <text x="665" y="320" text-anchor="middle" font-size="11" fill="#ffd9c7">Puente H doble</text>
+            <rect x="788" y="140" width="24" height="60" rx="3" fill="#2b6cdf"/>
+            <rect x="788" y="250" width="24" height="60" rx="3" fill="#2b6cdf"/>
+            <rect x="596" y="428" width="130" height="26" rx="3" fill="#1f9d6b"/>
+            <g class="pl lw" text-anchor="middle">
+              <text x="620" y="418">12V</text>
+              <text x="660" y="418">GND</text>
+              <text x="700" y="418">5V</text>
+            </g>
+            <g fill="#cfd8e3">
+              <circle cx="620" cy="441" r="6"/>
+              <circle cx="660" cy="441" r="6"/>
+              <circle cx="700" cy="441" r="6"/>
+            </g>
+            <rect x="40" y="498" width="232" height="120" rx="10" fill="#171c24" stroke="#2c3846" stroke-width="2"/>
+            <rect x="56" y="512" width="180" height="40" rx="20" fill="#1c8f63"/>
+            <rect x="56" y="562" width="180" height="40" rx="20" fill="#1c8f63"/>
+            <g text-anchor="middle" font-size="13" font-weight="700" fill="#eafff4">
+              <text x="146" y="537">18650</text>
+              <text x="146" y="587">18650</text>
+            </g>
+            <circle cx="272" cy="530" r="6" fill="#ff3b30"/>
+            <circle cx="272" cy="580" r="6" fill="#8b94a1"/>
+            <text class="t" x="40" y="640">Baterías 2×18650 en serie, 7,4 V</text>
+            <g id="parts"></g>
+            <g id="buz">
+              <circle id="buzring" cx="400" cy="40" r="22" fill="none" stroke="#f72585" stroke-width="3"/>
+              <circle cx="400" cy="40" r="22" fill="#171b21" stroke="#3a4350" stroke-width="2"/>
+              <circle cx="400" cy="40" r="5" fill="#0c1117"/>
+              <text x="383" y="32" fill="#aab4c2" font-size="12">+</text>
+            </g>
+            <path d="M422 40H450M450 32V48M456 35V45M462 38V42" fill="none" stroke="#8b94a1" stroke-width="2"/>
+            <text class="t" x="480" y="44">Buzzer activo</text>
+            <rect x="270" y="92" width="50" height="16" rx="4" fill="#d8c8a0"/>
+            <g fill="#c0392b">
+              <rect x="280" y="92" width="4" height="16"/>
+              <rect x="290" y="92" width="4" height="16"/>
+            </g>
+            <rect x="300" y="92" width="4" height="16" fill="#7a3b00"/>
+            <text class="t" x="295" y="128" text-anchor="middle">220 Ω</text>
+            <circle id="led" cx="392" cy="100" r="15" fill="#4a3f10" stroke="#6b5d1a" stroke-width="2"/>
+            <path d="M407 100H438M438 92V108M444 95V105M450 98V102" fill="none" stroke="#8b94a1" stroke-width="2"/>
+            <text class="t" x="480" y="104">LED con resistencia</text>
+            <g id="wires"></g>
+          </svg>
+        </div>
+        <p class="hint">Desliza horizontalmente para ver todo el diagrama.</p>
+        <p class="tip" id="tip">Pasa el cursor sobre un cable, o tócalo, para ver qué conecta.</p>
+      </div>
+
+      <div class="card ctl" id="ctl">
+        <div class="pad" id="pad">
+          <button data-c="H">H<small>Adel. izq.</small></button>
+          <button data-c="F">F<small>Adelante</small></button>
+          <button data-c="G">G<small>Adel. der.</small></button>
+          <button data-c="L">L<small>Izquierda</small></button>
+          <button data-c="S" class="stop">S<small>Detener</small></button>
+          <button data-c="R">R<small>Derecha</small></button>
+          <button data-c="I">I<small>Atrás izq.</small></button>
+          <button data-c="B">B<small>Atrás</small></button>
+          <button data-c="J">J<small>Atrás der.</small></button>
+        </div>
+        <div class="side">
+          <div>
+            <h3>Velocidad (PWM de 255)</h3>
+            <div class="seg">
+              <button data-c="1" data-v="65">1<small>65</small></button>
+              <button data-c="2" data-v="130">2<small>130</small></button>
+              <button data-c="3" data-v="195">3<small>195</small></button>
+              <button data-c="4" data-v="255">4<small>255</small></button>
+            </div>
+          </div>
+          <div class="row">
+            <button data-c="Y">Claxon<small>Y, dura 200 ms</small></button>
+            <button id="lights">Luces<small>U enciende, u apaga</small></button>
+          </div>
+        </div>
+        <div class="read">
+          <div id="chips"></div>
+          <p id="status"></p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>¿Para qué sirve este proyecto?</h2>
+      <div class="g3">
+        <div class="card">
+          <h3>Un carrito en tu bolsillo</h3>
+          <p>El ESP32 se anuncia como «Bikot_Car» por Bluetooth Classic. Desde el teléfono envías una letra por comando: F, B, L y R para moverte, H, G, I y J para las diagonales, S para frenar, Y para el claxon y U o u para las luces.</p>
+        </div>
+        <div class="card">
+          <h3>Velocidad con PWM</h3>
+          <p>ENA y ENB reciben una señal PWM de 30 kHz y 8 bits. Los botones 1 a 4 fijan 65, 130, 195 y 255 de 255, que equivalen a un ciclo de trabajo de 25 %, 51 %, 76 % y 100 %.</p>
+        </div>
+        <div class="card">
+          <h3>Seguridad al desconectar</h3>
+          <p>Si el teléfono pierde la conexión, el ESP32 espera <b>disconnectTimeout</b> (3 s), detiene los motores y se reinicia. Así el carrito no se escapa y vuelve a quedar visible para emparejarse.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Guía de conexión</h2>
+      <div class="card">
+        <div class="scroll">
+          <table>
+            <thead>
+              <tr><th>Paso</th><th>Conexión</th><th>Por qué</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>Batería + a 12V</td><td>Alimenta los motores y el regulador del L298N. Con 2×18650 llegan unos 6 V a los motores.</td></tr>
+              <tr><td>2</td><td>Batería − a GND</td><td>Cierra el circuito de potencia en el borne GND del L298N.</td></tr>
+              <tr><td>3</td><td>GND ESP32 a GND L298N</td><td>GND común: da a las señales de 3,3 V la misma referencia de 0 V que usa el L298N.</td></tr>
+              <tr><td>4</td><td>5V L298N a VIN ESP32</td><td>Alimenta el ESP32 desde las baterías. Evita tener el cable USB conectado al mismo tiempo.</td></tr>
+              <tr><td>5</td><td>GPIO 13 a ENA, GPIO 25 a ENB</td><td>Velocidad por PWM. Retira los jumpers de ENA y ENB, o el PWM no tendrá efecto.</td></tr>
+              <tr><td>6</td><td>GPIO 12 a IN1, 14 a IN2, 27 a IN3, 26 a IN4</td><td>Dirección: IN1 e IN2 mandan al motor A, IN3 e IN4 al motor B.</td></tr>
+              <tr><td>7</td><td>OUT1 y OUT2 al motor A, OUT3 y OUT4 al motor B</td><td>Si una rueda gira al revés, intercambia los dos cables de ese motor.</td></tr>
+              <tr><td>8</td><td>GPIO 23 al buzzer +</td><td>El claxon se activa con nivel alto durante 200 ms. El buzzer − va a GND.</td></tr>
+              <tr><td>9</td><td>GPIO 22 a resistencia, luego LED +</td><td>La resistencia de 220 Ω protege el LED. El cátodo va a GND.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note"><b>Por qué el GND debe ser común.</b> Una señal digital solo significa algo respecto a un punto de referencia. Si la batería, el L298N y el ESP32 no comparten GND, los pines IN leen valores erráticos: los motores tiemblan, se ponen en marcha solos o no responden.</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Lista de materiales</h2>
+      <div class="card">
+        <div class="bar"><i id="pb"></i></div>
+        <p id="pt" style="margin:8px 0 0;color:var(--mu)"></p>
+        <div class="mats" id="mats"></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Código del ESP32</h2>
+      <p style="color:var(--mu)">Usa el núcleo ESP32 3.x de Arduino, porque el código llama a <b>ledcAttach</b>.</p>
+      <div class="card ed">
+        <div class="edh">
+          <span>Bikot_Car.ino</span>
+          <button id="copy">Copiar código</button>
+        </div>
+        <pre><code id="code"></code></pre>
+      </div>
+    </section>
+  </main>
+
+  <script type="text/plain" id="src">
+#include "BluetoothSerial.h"
+
+#if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
+#error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
+#endif
+
+BluetoothSerial SerialBT;
+
+const int ENA = 13;
+const int IN1 = 12;
+const int IN2 = 14;
+const int IN3 = 27;
+const int IN4 = 26;
+const int ENB = 25;
+
+const int buzPin = 23;
+const int ledPin = 22;
+
+int valSpeed = 255;
+
+const int freq = 30000;
+const int resolution = 8;
+
+unsigned long disconnectionTime = 0;
+bool wasConnected = false;
+const unsigned long disconnectTimeout = 3000;
+
+unsigned long hornStartTime = 0;
+const unsigned long hornDuration = 200;
+bool hornActive = false;
+
+void SetSpeed(int val);
+void MoveForward();
+void MoveBackward();
+void TurnRight();
+void TurnLeft();
+void MoveForwardLeft();
+void MoveForwardRight();
+void MoveBackwardLeft();
+void MoveBackwardRight();
+void StopMotors();
+
+void setup() {
+    Serial.begin(115200);
+    SerialBT.begin("Bikot_Car");
+
+    pinMode(IN1, OUTPUT);
+    pinMode(IN2, OUTPUT);
+    pinMode(IN3, OUTPUT);
+    pinMode(IN4, OUTPUT);
+    pinMode(buzPin, OUTPUT);
+    pinMode(ledPin, OUTPUT);
+
+    ledcAttach(ENA, freq, resolution);
+    ledcAttach(ENB, freq, resolution);
+
+    SetSpeed(valSpeed);
+    StopMotors();
+}
+
+void loop() {
+    bool currentConnection = SerialBT.hasClient();
+
+    if (currentConnection) {
+        wasConnected = true;
+        disconnectionTime = millis();
+    } else if (wasConnected) {
+        if (millis() - disconnectionTime > disconnectTimeout) {
+            StopMotors();
+            ESP.restart();
+        }
+    }
+
+    if (hornActive && (millis() - hornStartTime >= hornDuration)) {
+        digitalWrite(buzPin, LOW);
+        hornActive = false;
+    }
+
+    while (SerialBT.available()) {
+        char command = SerialBT.read();
+        
+        if (command == '\n' || command == '\r') continue;
+
+        switch(command) {
+            case 'F':
+                SetSpeed(valSpeed);
+                MoveForward();
+                break;
+
+            case 'B':
+                SetSpeed(valSpeed);
+                MoveBackward();
+                break;
+
+            case 'R':
+                SetSpeed(valSpeed);
+                TurnRight();
+                break;
+
+            case 'L':
+                SetSpeed(valSpeed);
+                TurnLeft();
+                break;
+
+            case 'H':
+                SetSpeed(valSpeed);
+                MoveForwardLeft();
+                break;
+
+            case 'G':
+                SetSpeed(valSpeed);
+                MoveForwardRight();
+                break;
+
+            case 'I':
+                SetSpeed(valSpeed);
+                MoveBackwardLeft();
+                break;
+
+            case 'J':
+                SetSpeed(valSpeed);
+                MoveBackwardRight();
+                break;
+
+            case 'S':
+                StopMotors();
+                break;
+
+            case 'Y':
+                digitalWrite(buzPin, HIGH);
+                hornStartTime = millis();
+                hornActive = true;
+                break;
+
+            case 'U':
+            case 'W':
+                digitalWrite(ledPin, HIGH);
+                break;
+
+            case 'u':
+            case 'w':
+                digitalWrite(ledPin, LOW);
+                break;
+
+            case '1': SetSpeed(65); break;
+            case '2': SetSpeed(130); break;
+            case '3': SetSpeed(195); break;
+            case '4': SetSpeed(255); break;
+        }
+    }
+}
+
+void SetSpeed(int val) {
+    valSpeed = val;
+    ledcWrite(ENA, val);
+    ledcWrite(ENB, val);
+}
+
+void MoveForward() {
+    digitalWrite(IN1, HIGH);
+    digitalWrite(IN2, LOW);
+    digitalWrite(IN3, HIGH);
+    digitalWrite(IN4, LOW);
+}
+
+void MoveBackward() {
+    digitalWrite(IN1, LOW);
+    digitalWrite(IN2, HIGH);
+    digitalWrite(IN3, LOW);
+    digitalWrite(IN4, HIGH);
+}
+
+void TurnRight() {
+    digitalWrite(IN1, HIGH);
+    digitalWrite(IN2, LOW);
+    digitalWrite(IN3, LOW);
+    digitalWrite(IN4, HIGH);
+}
+
+void TurnLeft() {
+    digitalWrite(IN1, LOW);
+    digitalWrite(IN2, HIGH);
+    digitalWrite(IN3, HIGH);
+    digitalWrite(IN4, LOW);
+}
+
+void MoveForwardLeft() {
+    digitalWrite(IN1, HIGH);
+    digitalWrite(IN2, LOW);
+    digitalWrite(IN3, LOW);
+    digitalWrite(IN4, LOW);
+    ledcWrite(ENA, valSpeed);
+    ledcWrite(ENB, 0);
+}
+
+void MoveForwardRight() {
+    digitalWrite(IN1, LOW);
+    digitalWrite(IN2, LOW);
+    digitalWrite(IN3, HIGH);
+    digitalWrite(IN4, LOW);
+    ledcWrite(ENA, 0);
+    ledcWrite(ENB, valSpeed);
+}
+
+void MoveBackwardLeft() {
+    digitalWrite(IN1, LOW);
+    digitalWrite(IN2, HIGH);
+    digitalWrite(IN3, LOW);
+    digitalWrite(IN4, LOW);
+    ledcWrite(ENA, valSpeed);
+    ledcWrite(ENB, 0);
+}
+
+void MoveBackwardRight() {
+    digitalWrite(IN1, LOW);
+    digitalWrite(IN2, LOW);
+    digitalWrite(IN3, LOW);
+    digitalWrite(IN4, HIGH);
+    ledcWrite(ENA, 0);
+    ledcWrite(ENB, valSpeed);
+}
+
+void StopMotors() {
+    digitalWrite(IN1, LOW);
+    digitalWrite(IN2, LOW);
+    digitalWrite(IN3, LOW);
+    digitalWrite(IN4, LOW);
+    ledcWrite(ENA, 0);
+    ledcWrite(ENB, 0);
+}
+  </script>
+
+  <script>
+    const $ = id => document.getElementById(id), NS = 'http://www.w3.org/2000/svg';
+    const S = { ena: 0, in1: 0, in2: 0, in3: 0, in4: 0, enb: 0, buz: 0, led: 0, val: 255, last: 'ninguno' };
+    let hornT;
+
+    let h = '';
+    [['GPIO23', 60], ['GPIO22', 100], ['GPIO13', 150], ['GPIO12', 180], ['GPIO14', 210], ['GPIO27', 240], ['GPIO26', 270], ['GPIO25', 300], ['GND', 350], ['VIN', 380]].forEach(([n, y]) => h += `<circle cx="210" cy="${y}" r="5" fill="#d9b44a"/><text class="pl" x="198" y="${y+4}" text-anchor="end">${n}</text>`);
+    [['ENA', 180], ['IN1', 210], ['IN2', 240], ['IN3', 270], ['IN4', 300], ['ENB', 330]].forEach(([n, y]) => h += `<circle cx="540" cy="${y}" r="5" fill="#d9b44a"/><text class="pl lw" x="552" y="${y+4}">${n}</text>`);
+    [['OUT1', 155], ['OUT2', 185], ['OUT3', 265], ['OUT4', 295]].forEach(([n, y]) => h += `<text class="pl lw" x="782" y="${y+4}" text-anchor="end">${n}</text><circle cx="800" cy="${y}" r="5" fill="#cfd8e3"/>`);
+    [['A', 155, 118], ['B', 299, 262]].forEach(([m, cy, by]) => h += `<text class="t" x="902" y="${by-8}" text-anchor="middle">Motor ${m}</text><rect x="860" y="${by}" width="84" height="74" rx="6" fill="#f1c40f"/><rect x="868" y="${by+10}" width="40" height="54" rx="4" fill="#d9a900"/><circle cx="926" cy="${by+22}" r="5" fill="#8a6d00"/><circle cx="926" cy="${by+52}" r="5" fill="#8a6d00"/><circle cx="860" cy="${by+20}" r="4" fill="#d9b44a"/><circle cx="860" cy="${by+54}" r="4" fill="#d9b44a"/><rect x="944" y="${cy-3}" width="56" height="6" fill="#aab4c2"/><g class="wheel" id="w${m}" style="transform-origin:1000px ${cy}px"><circle cx="1000" cy="${cy}" r="38" fill="#171b21" stroke="#3a4350" stroke-width="3"/><circle cx="1000" cy="${cy}" r="27" fill="none" stroke="#2c3440" stroke-width="7" stroke-dasharray="7 6"/><path d="M1000 ${cy-26}V${cy+26}M974 ${cy}H1026" stroke="#cfd8e3" stroke-width="4"/><circle cx="1000" cy="${cy-30}" r="4" fill="#EA7900"/><circle cx="1000" cy="${cy}" r="7" fill="#cfd8e3"/></g>`);
+    $('parts').innerHTML = h;
+
+    const drv = m => m == 'A' ? S.ena > 0 && S.in1 != S.in2 : S.enb > 0 && S.in3 != S.in4, on = () => true, W = [];
+    [['ena', 'GPIO 13', 'ENA', '#ffb703', 'PWM de velocidad del motor A'], ['in1', 'GPIO 12', 'IN1', '#3dd6c6', 'Dirección del motor A, junto con IN2'], ['in2', 'GPIO 14', 'IN2', '#6aa7ff', 'Dirección del motor A, junto con IN1'], ['in3', 'GPIO 27', 'IN3', '#c77dff', 'Dirección del motor B, junto con IN4'], ['in4', 'GPIO 26', 'IN4', '#ff6b9a', 'Dirección del motor B, junto con IN3'], ['enb', 'GPIO 25', 'ENB', '#9be564', 'PWM de velocidad del motor B']].forEach(([k, a, b, c, t], i) => W.push([`M210 ${150+i*30}C380 ${150+i*30} 370 ${180+i*30} 540 ${180+i*30}`, a, b, c, t, () => S[k] > 0]));
+    W.push(['M210 60C280 60 300 40 376 40', 'GPIO 23', 'Buzzer +', '#f72585', 'Claxon: nivel alto durante 200 ms', () => S.buz]);
+    W.push(['M210 100H270', 'GPIO 22', 'Resistencia 220 Ω', '#ffe066', 'Señal del LED, con la resistencia en serie', () => S.led]);
+    W.push(['M320 100H377', 'Resistencia 220 Ω', 'LED (ánodo)', '#ffe066', 'Corriente limitada hacia el LED', () => S.led]);
+    W.push(['M272 530C450 530 620 570 620 452', 'Batería +', '12V del L298N', '#ff3b30', 'Alimentación de los motores (unos 7,4 V)', on]);
+    W.push(['M272 580C520 620 660 600 660 452', 'Batería −', 'GND del L298N', '#aab4c2', 'Retorno de la batería', on]);
+    W.push(['M210 350C330 430 660 520 660 452', 'GND del ESP32', 'GND del L298N', '#e9eef5', 'GND común: referencia compartida de 0 V', on]);
+    W.push(['M210 380C360 480 700 540 700 452', '5V del L298N', 'VIN del ESP32', '#ff9a76', 'Alimenta el ESP32 desde las baterías', on]);
+    W.push(['M806 155C830 155 835 138 860 138', 'OUT1', 'Motor A', '#ffd166', 'Salida de potencia al motor A', () => drv('A')]);
+    W.push(['M806 185C830 185 835 172 860 172', 'OUT2', 'Motor A', '#f4a261', 'Salida de potencia al motor A', () => drv('A')]);
+    W.push(['M806 265C830 265 835 282 860 282', 'OUT3', 'Motor B', '#06d6a0', 'Salida de potencia al motor B', () => drv('B')]);
+    W.push(['M806 295C830 295 835 316 860 316', 'OUT4', 'Motor B', '#4cc9f0', 'Salida de potencia al motor B', () => drv('B')]);
+
+    const svg = $('svg'), wr = W.map(([d, a, b, c, t, f]) => {
+      const e = document.createElementNS(NS, 'g');
+      e.setAttribute('class', 'wire');
+      e.setAttribute('tabindex', '0');
+      e.style.color = c;
+      e.innerHTML = `<path class="hit" d="${d}"/><path class="vis" d="${d}" stroke="${c}"/>`;
+      const hl = v => {
+        e.classList.toggle('hl', v);
+        svg.classList.toggle('dim', v);
+        if (v) $('tip').textContent = `${a} a ${b}: ${t}.`;
+      };
+      e.onmouseenter = e.onfocus = () => hl(true);
+      e.onmouseleave = e.onblur = () => hl(false);
+      e.addEventListener('pointerdown', () => hl(true));
+      $('wires').appendChild(e);
+      return [e, f];
+    });
+
+    function cmd(c) {
+      const m = (a, b, c2, d) => { S.in1 = a; S.in2 = b; S.in3 = c2; S.in4 = d }, sv = v => { S.val = v; S.ena = S.enb = v };
+      const mv = { F: [1, 0, 1, 0], B: [0, 1, 0, 1], R: [1, 0, 0, 1], L: [0, 1, 1, 0] };
+      if (mv[c]) { sv(S.val); m(...mv[c]); }
+      else if ('HGIJ'.includes(c)) {
+        sv(S.val);
+        const d = { H: [1, 0, 0, 0, 1, 0], G: [0, 0, 1, 0, 0, 1], I: [0, 1, 0, 0, 1, 0], J: [0, 0, 0, 1, 0, 1] }[c];
+        m(...d.slice(0, 4));
+        S.ena = d[4] * S.val;
+        S.enb = d[5] * S.val;
+      } else if (c == 'S') { m(0, 0, 0, 0); S.ena = S.enb = 0; }
+      else if (c == 'Y') { S.buz = 1; clearTimeout(hornT); hornT = setTimeout(() => { S.buz = 0; render(); }, 200); }
+      else if (c == 'U' || c == 'W') S.led = 1;
+      else if (c == 'u' || c == 'w') S.led = 0;
+      else if ('1234'.includes(c)) sv([65, 130, 195, 255][c - 1]);
+    }
+
+    const send = c => { S.last = c; cmd(c); render(); };
+    const st = t => $('status').textContent = t;
+
+    function render() {
+      wr.forEach(([e, f]) => e.classList.toggle('on', !!f()));
+      [['A', S.ena, S.in1, S.in2], ['B', S.enb, S.in3, S.in4]].forEach(([m, en, a, b]) => {
+        const w = $('w' + m).style, dir = a == b ? 0 : a ? 1 : -1;
+        if (dir && en > 0) {
+          w.animationDuration = (.2 + (1 - en / 255) * 1.5) + 's';
+          w.animationDirection = dir > 0 ? 'normal' : 'reverse';
+          w.animationPlayState = 'running';
+        } else {
+          w.animationPlayState = 'paused';
+        }
+      });
+      $('led').classList.toggle('lit', !!S.led);
+      $('buzring').classList.toggle('lit', !!S.buz);
+      document.querySelectorAll('[data-v]').forEach(b => b.classList.toggle('act', +b.dataset.v == S.val));
+      $('lights').classList.toggle('act', !!S.led);
+      $('chips').innerHTML = [['ENA', S.ena], ['IN1', S.in1], ['IN2', S.in2], ['IN3', S.in3], ['IN4', S.in4], ['ENB', S.enb], ['Buzzer', S.buz], ['LED', S.led]].map(([n, v]) => `<span class="chip${v ? ' on' : ''}">${n} ${v}</span>`).join('') + `<span class="chip">Último comando: ${S.last}</span><span class="chip">valSpeed ${S.val} (${Math.round(S.val / 2.55)} %)</span>`;
+    }
+
+    document.querySelectorAll('#ctl button[data-c]').forEach(b => {
+      const c = b.dataset.c, hold = 'FBLRHGIJ'.includes(c);
+      b.addEventListener('pointerdown', e => { e.preventDefault(); b.classList.add('down'); if (hold) b.setPointerCapture(e.pointerId); send(c); });
+      const up = () => { if (b.classList.contains('down')) { b.classList.remove('down'); if (hold) send('S'); } };
+      b.addEventListener('pointerup', up);
+      b.addEventListener('pointercancel', up);
+      b.addEventListener('keydown', e => { if ((e.key == ' ' || e.key == 'Enter') && !e.repeat) { e.preventDefault(); b.classList.add('down'); send(c); } });
+      b.addEventListener('keyup', e => { if (e.key == ' ' || e.key == 'Enter') up(); });
+    });
+
+    $('lights').onclick = () => send(S.led ? 'u' : 'U');
+    document.addEventListener('pointerdown', e => { if (!e.target.closest('.wire')) { svg.classList.remove('dim'); wr.forEach(([w]) => w.classList.remove('hl')); } });
+    st('Cliente Bluetooth conectado a Bikot_Car.');
+    render();
+
+    const M = [['ESP32 DevKit V1', 'Placa de 30 pines con Bluetooth Classic'], ['Módulo L298N', 'Puente H doble con disipador'], ['2 motorreductores TT amarillos', 'Con sus ruedas'], ['Chasis de 2 ruedas', 'Con rueda loca'], ['2 baterías 18650', 'Cargadas y en serie, 7,4 V'], ['Porta pilas 2×18650', 'Con cables rojo y negro'], ['Buzzer activo', 'Suena al recibir tensión'], ['LED', 'Del color que prefieras'], ['Resistencia de 220 a 330 Ω', 'Limita la corriente del LED'], ['Cables Dupont', 'Hembra-hembra y macho-hembra'], ['Cable micro-USB', 'Para cargar el código en el ESP32']];
+    let sv = {};
+    try { sv = JSON.parse(localStorage.getItem('bikotMats') || '{}'); } catch (e) {}
+    $('mats').innerHTML = M.map(([n, d], i) => `<label><input type="checkbox" data-i="${i}"${sv[i] ? ' checked' : ''}><span><b>${n}</b><small>${d}</small></span></label>`).join('');
+    
+    const prog = () => {
+      const n = document.querySelectorAll('#mats input:checked').length;
+      $('pb').style.width = n / M.length * 100 + '%';
+      $('pt').textContent = `${n} de ${M.length} componentes listos`;
+    };
+    
+    $('mats').onchange = e => {
+      sv[e.target.dataset.i] = e.target.checked;
+      try { localStorage.setItem('bikotMats', JSON.stringify(sv)); } catch (x) {}
+      prog();
+    };
+    prog();
+
+    const src = $('src').textContent.trim(), esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    $('code').innerHTML = esc(src).replace(/("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|(^#.*$)|\b(\d+)\b|\b(const|void|int|bool|char|unsigned|long|if|else|while|switch|case|break|continue|true|false|default)\b|\b([A-Za-z_]\w*)(?=\()/gm, (m, s, p, n, k, f) => `<i class="${s ? 's' : p ? 'p' : n ? 'n' : k ? 'k' : 'f'}">${m}</i>`);
+    
+    $('copy').onclick = async () => {
+      let ok = false;
+      try { await navigator.clipboard.writeText(src); ok = true; } catch (e) {
+        const t = document.createElement('textarea');
+        t.value = src;
+        document.body.appendChild(t);
+        t.select();
+        try { ok = document.execCommand('copy'); } catch (x) {}
+        t.remove();
+      }
+      const b = $('copy');
+      b.textContent = ok ? 'Código copiado' : 'No se pudo copiar';
+      b.classList.toggle('done', ok);
+      setTimeout(() => { b.textContent = 'Copiar código'; b.classList.remove('done'); }, 2200);
+    };
+  </script>
+</body>
+</html>

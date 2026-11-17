@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Política de Privacidad de Bikot</title>
+  <meta name="description" content="Política de Privacidad de la aplicación Bikot, herramienta de control remoto por Bluetooth para proyectos de hardware y robótica.">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Bikot';
+      src: url('../../fonts/Bikot.woff2') format('woff2'),
+           url('../../fonts/Bikot.ttf') format('truetype'),
+           url('../../fonts/Bikot.woff') format('woff'),
+           url('../../fonts/Bikot.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: block;
+    }
+
+    [class^="icon-"], [class*=" icon-"] {
+      font-family: 'Bikot' !important;
+      speak: never;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .icon-Bikot:before { content: "\e900"; }
+
+    :root {
+      --bg: #0c1117;
+      --pn: rgba(255,255,255,.045);
+      --ln: rgba(255,255,255,.11);
+      --tx: #e6ebf1;
+      --mu: #93a1b3;
+      --ac: #EA7900;
+      --sg: #3dd6c6;
+      color-scheme: dark;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      --halftone-size: 8px;
+      --grad-start: -10%;
+      --grad-end: 85%;
+    }
+
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
+
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 76px);
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(900px 520px at 88% -8%, rgba(234,121,0,.17), transparent 60%),
+                  radial-gradient(700px 500px at -8% 28%, rgba(61,214,198,.09), transparent 60%), #0c1117;
+      background-color: var(--bg);
+      color: var(--tx);
+      font: 400 16px/1.7 "Chakra Petch", system-ui, sans-serif;
+    }
+
+    main {
+      max-width: 860px;
+      margin: 60px auto 0;
+      padding: 28px 18px 64px;
+    }
+
+    h1 {
+      font-size: clamp(2.1rem, 6vw, 3.6rem);
+      line-height: 1.05;
+      margin: 18px 0 12px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+    }
+
+    h2 {
+      font-size: 1.45rem;
+      margin: 0 0 12px;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
+
+    ul {
+      margin: 0 0 12px;
+      padding-left: 22px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    a {
+      color: var(--sg);
+      text-underline-offset: 3px;
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--sg);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+
+    .lead {
+      max-width: 62ch;
+      color: var(--mu);
+      font-size: 1.1rem;
+    }
+
+    .meta {
+      font: 400 .88rem "JetBrains Mono", monospace;
+      color: var(--sg);
+      margin-top: 18px;
+    }
+
+    section {
+      margin-top: 40px;
+    }
+
+    .header-bar {
+      width: 100%;
+      height: 60px;
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      padding: 0 15px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      overflow: visible;
+    }
+
+    .header-bar::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background-color: var(--color-naranja-principal, #EA7900);
+      box-shadow: 0 2px 4px rgba(0,0,0,.3);
+      z-index: -2;
+      width: 0;
+      animation: headerSlide 3s cubic-bezier(.25,1,.5,1) forwards;
+    }
+
+    .header-bar::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: -1;
+      background-image: radial-gradient(circle at center, #fff 0%, #000 65%),
+                        radial-gradient(circle at center, #fff 0%, #000 65%),
+                        linear-gradient(90deg, #fff var(--grad-start), #000 var(--grad-end));
+      background-size: var(--halftone-size) var(--halftone-size), var(--halftone-size) var(--halftone-size), 100% 100%;
+      background-position: 0 0, calc(var(--halftone-size)/2) calc(var(--halftone-size)/2), 0 0;
+      background-blend-mode: screen, screen, multiply;
+      filter: contrast(18);
+      mix-blend-mode: multiply;
+      width: 0;
+      animation: headerSlide 3s cubic-bezier(.25,1,.5,1) forwards;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      color: #fff;
+    }
+
+    .app-title-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .app-icon-header-custom {
+      font-size: 79px !important;
+      margin-right: 12px;
+      line-height: 1;
+      display: inline-block;
+      animation: iconIntro 3s cubic-bezier(.25,1,.5,1) forwards;
+    }
+
+    .app-title-superposition {
+      font-family: 'Bikot', 'Montserrat', 'Syne', 'Outfit', sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      letter-spacing: -.02em;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #fff 30%, #ffb86c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 4px 20px rgba(0,0,0,.15);
+      white-space: normal;
+      transition: transform .3s ease;
+      opacity: 0;
+      animation: textFadeIn 2s ease-out forwards;
+      padding-right: 12px;
+    }
+
+    @keyframes headerSlide {
+      0%, 29% { width: 0; opacity: 0; }
+      30% { width: 80px; opacity: 1; }
+      100% { width: 100%; opacity: 1; }
+    }
+
+    @keyframes iconIntro {
+      0% { transform: translate(calc(50vw - 50px), calc(50vh - 30px)) scale(3) rotateY(180deg); color: #EA7900; }
+      20% { transform: translate(calc(50vw - 50px), calc(50vh - 30px)) scale(3) rotateY(0deg); color: #EA7900; }
+      50% { transform: translate(0, 0) scale(1) rotateY(0deg); color: #EA7900; }
+      80%, 100% { transform: translate(0, 0) scale(1) rotateY(0deg); color: #000; }
+    }
+
+    @keyframes textFadeIn {
+      0%, 55% { opacity: 0; transform: translateX(-20px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+
+    .card {
+      background: var(--pn);
+      border: 1px solid var(--ln);
+      border-radius: 18px;
+      padding: 22px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 18px 40px -22px rgba(0,0,0,.7);
+    }
+
+    .card > :last-child {
+      margin-bottom: 0;
+    }
+
+    .summary {
+      margin-top: 28px;
+      border-left: 3px solid var(--ac);
+      border-radius: 0 18px 18px 0;
+      background: rgba(234,121,0,.08);
+    }
+
+    .summary h2 {
+      font-size: 1.15rem;
+    }
+
+    .note {
+      margin-top: 16px;
+      border-left: 3px solid var(--ac);
+      padding: 10px 16px;
+      background: rgba(234,121,0,.08);
+      border-radius: 0 12px 12px 0;
+    }
+
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 26px;
+    }
+
+    .toc a {
+      font: 600 12px "JetBrains Mono", monospace;
+      padding: 6px 12px;
+      border-radius: 99px;
+      border: 1px solid var(--ln);
+      color: var(--mu);
+      text-decoration: none;
+      transition: color .15s, border-color .15s;
+    }
+
+    .toc a:hover {
+      color: var(--sg);
+      border-color: var(--sg);
+    }
+
+    .scroll {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 560px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--ln);
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--mu);
+      font-weight: 600;
+      font-size: .85rem;
+    }
+
+    td:first-child {
+      font-family: "JetBrains Mono", monospace;
+      font-size: .85rem;
+      color: var(--ac);
+      white-space: nowrap;
+    }
+
+    footer {
+      margin-top: 52px;
+      padding-top: 18px;
+      border-top: 1px solid var(--ln);
+      color: var(--mu);
+      font-size: .9rem;
+    }
+
+    @media (max-width: 560px) {
+      main { padding: 18px 12px 48px; }
+      .card { padding: 16px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .header-bar::before, .header-bar::after { animation: none; width: 100%; }
+      .app-icon-header-custom { animation: none; color: #000; }
+      .app-title-superposition { animation: none; opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header-bar">
+    <div class="header-content">
+      <div class="app-title-container">
+        <i class="icon-Bikot app-icon-header-custom"></i>
+        <span class="app-title-superposition">Bikot&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <article>
+      <h1>Política de Privacidad</h1>
+      <p class="lead">Car Controller gw es una herramienta de control remoto por Bluetooth para proyectos de hardware y robótica. Esta política explica qué ocurre con tu información cuando usas la aplicación: en resumen, nada sale de tu teléfono.</p>
+      <p class="meta">Última actualización: 17 de noviembre de 2026</p>
+
+      <div class="card summary">
+        <h2>En resumen</h2>
+        <ul>
+          <li>Car Controller gw no recopila, almacena ni comparte información personal ni sensible.</li>
+          <li>El Bluetooth se usa solo para conectar tu teléfono con tu propio dispositivo, de forma local y directa.</li>
+          <li>No hay anuncios, analíticas ni SDK de rastreo de terceros.</li>
+          <li>No necesitas crear una cuenta para usar la aplicación.</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="Contenido de la política">
+        <a href="#alcance">Alcance</a>
+        <a href="#datos">Recopilación de datos</a>
+        <a href="#bluetooth">Permisos de Bluetooth</a>
+        <a href="#sensores">Sensores</a>
+        <a href="#terceros">Servicios de terceros</a>
+        <a href="#menores">Menores de edad</a>
+        <a href="#cambios">Cambios</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <section id="alcance">
+        <h2>Alcance de esta política</h2>
+        <p>Esta Política de Privacidad se aplica a la aplicación Android Car Controller gw, distribuida a través de Google Play. Describe cómo la aplicación trata la información en tu dispositivo y los permisos que solicita para funcionar.</p>
+        <p>Car Controller gw está pensada para enviar comandos de control a dispositivos de hardware propios del usuario, como robots o vehículos basados en microcontroladores con Bluetooth.</p>
+      </section>
+
+      <section id="datos">
+        <h2>Recopilación de datos</h2>
+        <div class="card">
+          <p><strong>Car Controller gw no recopila, almacena, transmite ni comparte información personal ni sensible de los usuarios.</strong></p>
+          <p>Esto incluye, entre otros: nombre, correo electrónico, número de teléfono, ubicación, contactos, fotografías, archivos, identificadores publicitarios, historial de uso e información financiera.</p>
+          <p>Los comandos que envías al dispositivo conectado se transmiten directamente por Bluetooth y no se guardan ni se envían a ningún servidor. La aplicación no cuenta con registro de usuarios ni con servidores propios que reciban datos de tu teléfono.</p>
+        </div>
+      </section>
+
+      <section id="bluetooth">
+        <h2>Uso de permisos de Bluetooth</h2>
+        <p>Para funcionar, Car Controller gw necesita permisos de Bluetooth. Se utilizan únicamente para estas tareas:</p>
+        <ul>
+          <li>Mostrar los dispositivos Bluetooth ya emparejados con tu teléfono.</li>
+          <li>Establecer una conexión local y directa entre tu teléfono y tu dispositivo de hardware.</li>
+          <li>Enviar los comandos de control al dispositivo conectado.</li>
+        </ul>
+        <p>La comunicación ocurre exclusivamente entre tu teléfono y tu dispositivo, sin pasar por Internet. <strong>Ningún dato obtenido a través de Bluetooth se envía a servidores externos.</strong></p>
+        <div class="card scroll">
+          <table>
+            <thead>
+              <tr><th>Permiso</th><th>Para qué se usa</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Bluetooth</td><td>Conectarse al dispositivo y enviarle comandos de control.</td></tr>
+              <tr><td>Acceso a la red</td><td>Permiso estándar de la plataforma para la interfaz de la aplicación y para abrir enlaces externos. No se usa para enviar datos tuyos.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">En algunas versiones de Android, el sistema agrupa la detección de dispositivos Bluetooth cercanos bajo el permiso de ubicación. Si tu versión lo solicita, se usa solo para esa función del sistema: Car Controller gw no accede a tu ubicación, no la recopila y no la comparte.</p>
+      </section>
+
+      <section id="sensores">
+        <h2>Sensores del dispositivo</h2>
+        <p>Algunas funciones, como el control por inclinación, utilizan el giroscopio o el sensor de orientación de tu teléfono. Estas lecturas se procesan en tiempo real dentro de la aplicación para generar comandos de movimiento, y se descartan de inmediato. No se guardan ni se transmiten, salvo como comando de control al dispositivo que tú conectaste.</p>
+      </section>
+
+      <section id="terceros">
+        <h2>Servicios de terceros</h2>
+        <p>Car Controller gw <strong>no incluye SDK de rastreo, analíticas, publicidad ni servicios de informes de errores de terceros</strong>. La aplicación no muestra anuncios y no comparte información con redes publicitarias ni con intermediarios de datos.</p>
+        <p>La aplicación puede contener un enlace al sitio web de Bikot. Al tocarlo, se abre en el navegador predeterminado de tu teléfono, fuera de la aplicación. Ese sitio se rige por su propia política y es independiente del funcionamiento de la aplicación.</p>
+      </section>
+
+      <section id="menores">
+        <h2>Menores de edad</h2>
+        <p>Dado que Bikot no recopila datos personales de ninguna persona, tampoco recopila información de menores de edad. Se recomienda que los menores usen la aplicación con la supervisión de un adulto, especialmente al trabajar con componentes electrónicos y baterías.</p>
+      </section>
+
+      <section id="cambios">
+        <h2>Cambios en esta política</h2>
+        <p>Si en el futuro la aplicación cambia la forma en que trata la información, actualizaremos esta página y modificaremos la fecha de «Última actualización». Te recomendamos revisarla de vez en cuando. Si un cambio implicara recopilar datos personales, lo comunicaremos de forma clara antes de que se aplique.</p>
+      </section>
+
+      <section id="contacto">
+        <h2>Contacto</h2>
+        <p>Si tienes preguntas, dudas o solicitudes relacionadas con esta Política de Privacidad o con la privacidad en Bikot, escríbenos:</p>
+        <div class="card">
+          <p><strong>Correo electrónico:</strong> <a href="mailto:bikot.robotica@gmail.com">bikot.robotica@gmail.com</a></p>
+          <p><strong>Sitio web:</strong> <a href="https://bikotworl.com" target="_blank" rel="noopener noreferrer">bikotworl.com</a></p>
+        </div>
+      </section>
+    </article>
+
+    <footer>
+      <p>&copy; 2026 Bikot. Todos los derechos reservados.</p>
+    </footer>
+  </main>
+</body>
+</html>
